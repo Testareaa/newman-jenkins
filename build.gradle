@@ -16,6 +16,10 @@ node{
     download = true
 }
 
+task installHtmlReportDir(type: Exec){
+    commandLine 'npm', 'install', 'newman-reporter-html'
+}
+
 postman{
     htmlReportDir = 'build/testOutput/html'
 }
