@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     id 'java'
     id "com.github.michaelruocco.gradle-postman-runner" version "0.1.2"
@@ -12,15 +14,19 @@ repositories {
     mavenCentral()
 }
 
-node{
+node {
     download = true
 }
 
-task installHtmlReportDir(type: Exec){
-    commandLine 'npm', 'install', 'newman-reporter-html'
+task installHtmlReportDir(type: Exec) {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'npm.cmd', 'install', 'newman-reporter-html'
+    } else {
+        commandLine 'npm', 'install', 'newman-reporter-html'
+    }
 }
 
-postman{
+postman {
     htmlReportDir = 'build/testOutput/html'
 }
 
@@ -28,7 +34,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-tasks.postman{
+tasks.postman {
     dependsOn installHtmlReportDir
 }
 
