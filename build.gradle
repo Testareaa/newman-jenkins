@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id "com.github.michaelruocco.gradle-postman-runner" version "0.1.2"
+}
+
+group 'newman-wrapper'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+node{
+    download = true
+}
+
+postman{
+    htmlReportDir = 'build/testOutput/html'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
